@@ -10,7 +10,7 @@ Summary:        Open-source legacy BIOS implementation
 License:        LGPLv3
 URL:            http://www.coreboot.org/SeaBIOS
 
-Source0:        http://code.coreboot.org/p/seabios/downloads/get/%{name}-%{version}.tar.gz
+Source0:        https://www.seabios.org/downloads/%{name}-%{version}.tar.gz
 #Source0:       %%{name}-%%{version}.tar.xz
 
 Patch0001:      0001-Workaround-for-a-win8.1-32-S4-resume-bug.patch
