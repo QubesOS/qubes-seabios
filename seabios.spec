@@ -4,7 +4,8 @@
 
 Name:           seabios
 Version:        1.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
+Epoch:          1000
 Summary:        Open-source legacy BIOS implementation
 
 License:        LGPLv3
