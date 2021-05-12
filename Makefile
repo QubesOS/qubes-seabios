@@ -8,6 +8,10 @@ BUILDDIR ?= $(WORKDIR)
 RPMDIR ?= $(WORKDIR)/rpm
 SOURCEDIR := $(WORKDIR)
 
+ifeq ($(FETCH_CMD),)
+$(error "You can not run this Makefile without having FETCH_CMD defined")
+endif
+
 RPM_DEFINES := --define "_sourcedir $(SOURCEDIR)" \
         --define "_specdir $(SPECDIR)" \
         --define "_builddir $(BUILDDIR)" \
@@ -24,7 +28,6 @@ endif
 
 DISTFILES_MIRROR ?= https://ftp.qubes-os.org/distfiles/
 UNTRUSTED_SUFF := .UNTRUSTED
-FETCH_CMD := wget --no-use-server-timestamps -q -O
 
 SHELL := /bin/bash
 
