@@ -41,8 +41,8 @@ Buildarch:     noarch
 ExclusiveArch: x86_64
 %endif
 
-Requires: %{name}-bin = %{version}-%{release}
-Requires: seavgabios-bin = %{version}-%{release}
+Requires: %{name}-bin = %{epoch}:%{version}-%{release}
+Requires: seavgabios-bin = %{epoch}:%{version}-%{release}
 
 # Seabios is noarch, but required on architectures which cannot build it.
 # Disable debuginfo because it is of no use to us.
