@@ -10,7 +10,7 @@ SRC_FILE := seabios-$(VERSION).tar.gz
 BUILDER_DIR ?= ../..
 SRC_DIR ?= qubes-src
 
-DISTFILES_MIRROR ?= https://ftp.qubes-os.org/distfiles/
+DISTFILES_MIRROR ?= https://www.seabios.org/downloads/
 UNTRUSTED_SUFF := .UNTRUSTED
 
 fetch = $(or $(FETCH_CMD),$(error You can not run this Makefile without having FETCH_CMD defined))
