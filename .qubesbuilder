@@ -1,0 +1,8 @@
+host:
+  rpm:
+    spec:
+    - seabios.spec
+source:
+  files:
+  - url: https://www.seabios.org/downloads/seabios-1.13.0.tar.gz
+    sha512: seabios-1.13.0.tar.gz.sha512
