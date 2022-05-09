@@ -1,6 +1,6 @@
 host:
   rpm:
-    spec:
+    build:
     - seabios.spec
 source:
   files:
