@@ -4,5 +4,5 @@ host:
     - seabios.spec
 source:
   files:
-  - url: https://www.seabios.org/downloads/seabios-1.13.0.tar.gz
-    sha512: seabios-1.13.0.tar.gz.sha512
+  - url: https://www.seabios.org/downloads/seabios-@VERSION@.tar.gz
+    sha512: seabios-@VERSION@.tar.gz.sha512
