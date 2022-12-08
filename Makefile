@@ -1,39 +1,25 @@
+DIST ?= fc35
 NAME := seabios
-SPECFILE := seabios.spec
+VERSION := $(file <version)
+REL := $(file <rel)
 
-WORKDIR := $(shell pwd)
-SPECDIR ?= $(WORKDIR)
-SRCRPMDIR ?= $(WORKDIR)/srpm
-BUILDDIR ?= $(WORKDIR)
-RPMDIR ?= $(WORKDIR)/rpm
-SOURCEDIR := $(WORKDIR)
+FEDORA_SOURCES := https://src.fedoraproject.org/rpms/seabios/raw/f$(subst fc,,$(DIST))/f/sources
+FEDORA_REL ?= $(REL)
+SRC_FILE := seabios-$(VERSION).tar.gz
 
-ifeq ($(FETCH_CMD),)
-$(error "You can not run this Makefile without having FETCH_CMD defined")
-endif
+BUILDER_DIR ?= ../..
+SRC_DIR ?= qubes-src
 
-RPM_DEFINES := --define "_sourcedir $(SOURCEDIR)" \
-        --define "_specdir $(SPECDIR)" \
-        --define "_builddir $(BUILDDIR)" \
-        --define "_srcrpmdir $(SRCRPMDIR)" \
-        --define "_rpmdir $(RPMDIR)"
-
-URL := $(shell spectool $(RPM_DEFINES) --list-files --source 0 $(SPECFILE) 2> /dev/null| cut -d ' ' -f 2- )
-
-ifndef SRC_FILE
-ifdef URL
-SRC_FILE := $(notdir $(URL))
-endif
-endif
-
-DISTFILES_MIRROR ?= https://ftp.qubes-os.org/distfiles/
+DISTFILES_MIRROR ?= https://www.seabios.org/downloads/
 UNTRUSTED_SUFF := .UNTRUSTED
+
+fetch = $(or $(FETCH_CMD),$(error You can not run this Makefile without having FETCH_CMD defined))
 
 SHELL := /bin/bash
 
 %: %.sha512
-	@$(FETCH_CMD) $@$(UNTRUSTED_SUFF) $(URL)
-	@sha512sum --status -c <(printf "$$(cat $<)  -\n") <$@$(UNTRUSTED_SUFF) || \
+	@$(fetch) $@$(UNTRUSTED_SUFF) $(DISTFILES_MIRROR)$@
+	@sha512sum --status -c <(printf "$(file <$<)  -\n") <$@$(UNTRUSTED_SUFF) || \
 		{ echo "Wrong SHA512 checksum on $@$(UNTRUSTED_SUFF)!"; exit 1; }
 	@mv $@$(UNTRUSTED_SUFF) $@
 
@@ -43,3 +29,16 @@ get-sources: $(SRC_FILE)
 .PHONY: verify-sources
 verify-sources:
 	@true
+
+# This target is generating content locally from upstream project
+# 'sources' file. Sanitization is done but it is encouraged to perform
+# update of component in non-sensitive environnements to prevent
+# any possible local destructions due to shell rendering
+.PHONY: update-sources
+update-sources:
+	@$(BUILDER_DIR)/$(SRC_DIR)/builder-rpm/scripts/generate-hashes-from-sources $(FEDORA_SOURCES)
+
+
+.PHONY: get-sources-from-srpm
+get-sources-from-srpm:
+	@$(BUILDER_DIR)/$(SRC_DIR)/builder-rpm/scripts/get_sources_from_srpm $(DIST) seabios seabios-$(VERSION)-$(FEDORA_REL).$(DIST).src.rpm $(SRC_FILE)

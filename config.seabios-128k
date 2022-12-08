@@ -11,10 +11,17 @@ CONFIG_USB_UAS=n
 CONFIG_SDCARD=n
 CONFIG_TCGBIOS=n
 CONFIG_MPT_SCSI=n
+CONFIG_ESP_SCSI=n
+CONFIG_MEGASAS=n
 CONFIG_PVSCSI=n
 CONFIG_NVME=n
 CONFIG_USE_SMM=n
 CONFIG_VGAHOOKS=n
-CONFIG_ESP_SCSI=n
-CONFIG_LSI_SCSI=n
-CONFIG_MEGASAS=n
+CONFIG_HOST_BIOS_GEOMETRY=n
+CONFIG_ACPI_PARSE=n
+# Patch 0002 generates different rom sizes than qemu's
+# seabios build, so we need to disable additional bits
+# to fit under the rom size limit. For some reason this
+# doesn't affect RHEL8 builds, maybe gcc version factors
+# in too.
+CONFIG_SERCON=n
