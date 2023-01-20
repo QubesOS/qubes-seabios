@@ -14,11 +14,7 @@ URL:            https://www.seabios.org
 Source0:        https://www.seabios.org/downloads/%{name}-%{version}.tar.gz
 
 Patch0001:      0001-Workaround-for-a-win8.1-32-S4-resume-bug.patch
-Patch0002:      0002-reserve-more-memory-on-fseg.patch
 Patch0003:      0003-vgabios-Reorder-video-modes-to-work-around-a-Windows.patch
-Patch0004:      0004-nvme-Record-maximum-allowed-request-size.patch
-Patch0005:      0005-nvme-improve-namespace-allocation.patch
-Patch0006:      0006-vgasrc-ignore-.node.gnu.property-binutils-2.36-suppo.patch
 
 Source10:       config.vga-cirrus
 Source11:       config.vga-isavga
@@ -37,7 +33,7 @@ Source23:       config.seabios-microvm
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: python3 iasl
+BuildRequires: python3
 %if 0%{?cross:1}
 BuildRequires: binutils-x86_64-linux-gnu gcc-x86_64-linux-gnu
 Buildarch:     noarch
